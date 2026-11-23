@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>YOU SEEDS HOUSE｜后期思维导图</title>
+  <style>
+:root { color-scheme: light; --ink:#1d2736; --muted:#7a8698; --border:#e4e8ef; --accent:#4e72ed; --accent-light:#e9efff; --bg:#fff; font-family:Inter, ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft Yahei","PingFang SC",sans-serif; }
+* { box-sizing:border-box; }
+html, body { width:100%;height:100%;padding:0;margin:0;overflow:hidden; }
+body { color:var(--ink); background:#fff; }
+button, input { font:inherit; }
+button { cursor:pointer; }
+button:focus-visible, input:focus-visible, .node-text:focus-visible { outline:3px solid #9eb4ff; outline-offset:2px; }
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.app{height:100%;width:100%;display:flex;flex-direction:column;}
+.topbar { height:77px; flex-shrink:0;display:flex;align-items:center;padding:0 26px;gap:13px;border-bottom:1px solid #ebedf3;background:#fff;position:relative;z-index:4; }
+.brand{width:38px;height:38px;flex-shrink:0;border-radius:12px;background:#edf2ff;position:relative;}
+.brand-line{position:absolute;width:19px;height:3px;background:#5074f1;top:17px;left:9px;transform:rotate(-31deg);border-radius:10px;}
+.brand-dot{position:absolute;width:9px;height:9px;background:#5276f1;border:2px solid #edf2ff;top:10px;right:6px;border-radius:50%;}
+.brand-dot-two{top:22px;left:7px;right:auto;}
+.title-area{min-width:145px;flex:1;}
+.board-title{font-size:19px;font-weight:720;letter-spacing:-.4px;border:none;background:transparent;color:#1b2637;width:min(100%,600px);outline:none;padding:2px 4px;white-space:nowrap;text-overflow:ellipsis;}
+.status-row{display:flex;align-items:center;gap:6px;font-size:11px;color:#8792a2;margin:2px 4px 0;}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#f0a74a;flex-shrink:0;}
+.status-dot.online{background:#2eb884;}.status-dot.error{background:#dc5757;}.status-dot.saving{background:#f0a74a;}
+.toolbar{display:flex;align-items:center;gap:9px;flex-shrink:0;}
+.btn{height:35px;padding:0 14px;border:1px solid #dde3ed;border-radius:9px;background:#fff;color:#4d596b;font-weight:600;font-size:13px;white-space:nowrap;transition:background .15s,border-color .15s;}
+.btn:hover{background:#f6f8fc;}.btn.active{border-color:#7d99f6;color:#496fea;background:#edf2ff;}
+.btn-primary{background:#4e72ed;color:#fff;border-color:#4e72ed;}.btn-primary:hover{background:#3f62db;}
+.icon-text{font-size:20px;vertical-align:-1px;margin-right:4px;font-weight:400;}
+.toolbar-divider{width:1px;height:22px;background:#e8ebf1;margin:0 3px;}
+.workspace{position:relative;flex:1;min-height:0;overflow:hidden;cursor:grab;touch-action:none;background-color:#fbfcff;background-image:radial-gradient(#dbe1eb 1px, transparent 1px);background-size:23px 23px;}
+.workspace.is-panning{cursor:grabbing;}.workspace.is-linking{cursor:crosshair;}
+.stage{position:absolute;top:0;left:0;width:100%;height:100%;transform-origin:0 0;pointer-events:none;}
+.edge-layer,.node-layer{position:absolute;top:0;left:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+.edge{fill:none;stroke:#9baec9;stroke-width:2.3;stroke-linecap:round;pointer-events:none;}
+.edge-hit{fill:none;stroke:transparent;stroke-width:18;cursor:pointer;pointer-events:stroke;}
+.edge.selected{stroke:#4e72ed;stroke-width:3.5;}
+.edge.temporary{stroke:#6d8af5;stroke-width:2.3;stroke-dasharray:6 5;}
+.node{position:absolute;width:206px;height:90px;min-height:66px;padding:14px 18px;display:flex;align-items:center;border:1px solid #dfe5ef;background:#fff;border-radius:13px;box-shadow:0 5px 21px rgba(36,56,92,.085),0 1px 3px rgba(39,55,90,.045);user-select:none;touch-action:none;cursor:grab;pointer-events:auto;transition:border-color .12s,box-shadow .12s;}
+.node:hover{border-color:#9ab0e8;box-shadow:0 7px 24px rgba(50,68,112,.12)}
+.node.selected{border-color:#5277ef;box-shadow:0 0 0 3px rgba(78,114,237,.15),0 6px 22px rgba(36,56,92,.095)}
+.node.dragging{cursor:grabbing;z-index:10;box-shadow:0 10px 30px rgba(46,60,95,.18);}
+.node.pending{border-color:#5e84ff;box-shadow:0 0 0 4px rgba(78,114,237,.14);}
+.node-text{font-size:15px;line-height:1.52;min-height:0;width:100%;max-height:100%;overflow:auto;color:#283449;letter-spacing:.1px;overflow-wrap:anywhere;white-space:pre-wrap;outline:none;cursor:inherit;}
+.node-text.editing{cursor:text;user-select:text;min-height:34px;outline:none;}
+.node-text:empty:before{content:'输入模块文字';color:#a3acb9;}
+.handle{position:absolute;width:12px;height:12px;border-radius:50%;border:2px solid #fff;background:#7e9ae9;box-shadow:0 0 0 1px #adc0ef;opacity:0;transition:opacity .1s;cursor:crosshair;pointer-events:auto;touch-action:none;}
+.node:hover .handle,.node.selected .handle,.workspace.is-linking .handle,.node.pending .handle{opacity:1;}
+.handle.left{left:-6px;top:50%;transform:translateY(-50%);}.handle.right{right:-6px;top:50%;transform:translateY(-50%);}.handle.top{top:-6px;left:50%;transform:translateX(-50%);}.handle.bottom{bottom:-6px;left:50%;transform:translateX(-50%);}
+.handle:hover{background:#456bee;box-shadow:0 0 0 5px #dae3ff;opacity:1;}
+.empty-hint{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;font-size:14px;color:#9aa5b6;pointer-events:none;}
+.empty-hint[hidden]{display:none}
+.bottom-hint{position:absolute;left:22px;bottom:24px;font-size:12px;color:#99a3b3;pointer-events:none;user-select:none;}
+.zoom-control{position:absolute;right:24px;bottom:20px;height:38px;display:flex;align-items:center;background:#fff;border:1px solid #e2e6ef;border-radius:10px;box-shadow:0 3px 10px rgba(30,51,88,.07);overflow:hidden;}
+.zoom-control button{width:37px;height:100%;border:0;background:white;color:#586778;font-size:19px;}.zoom-control button:hover{background:#f1f4f9;}.zoom-control span{font-size:12px;min-width:54px;text-align:center;color:#778294;font-variant-numeric:tabular-nums;}
+.zoom-control .fit-btn{width:46px;font-size:12px;border-left:1px solid #edf0f5;}
+.toast{position:absolute;left:50%;bottom:74px;transform:translateX(-50%);padding:10px 15px;border-radius:10px;background:#25334d;color:#fff;box-shadow:0 8px 20px rgba(20,27,44,.2);font-size:13px;z-index:6;opacity:0;pointer-events:none;transition:opacity .2s;}
+.toast.show{opacity:1;}
+@media(max-width:740px){.topbar{height:auto;min-height:118px;flex-wrap:wrap;padding:10px 14px;gap:6px 10px}.brand{width:32px;height:32px}.title-area{min-width:0}.board-title{font-size:16px}.toolbar{width:100%;justify-content:space-between;gap:5px}.btn{height:31px;font-size:11px;padding:0 8px}.toolbar-divider{display:none}.bottom-hint{max-width:calc(100% - 115px);left:12px;bottom:15px;font-size:10px;line-height:1.6}.zoom-control{right:10px;bottom:12px}.zoom-control button{width:27px}.zoom-control span{min-width:35px;font-size:10px}.zoom-control .fit-btn{width:34px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* 模块本身可独立设置颜色和尺寸，不影响画布缩放 */
+.node[data-color="white"]{background:#ffffff;border-color:#dfe5ef;}
+.node[data-color="yellow"]{background:#fff2bc;border-color:#ebda8d;}
+.node[data-color="blue"]{background:#dfeeff;border-color:#bbd5f3;}
+.node[data-color="green"]{background:#dcf3df;border-color:#b9dcbe;}
+.node[data-color="pink"]{background:#ffe3ea;border-color:#f3bfce;}
+.node[data-color="purple"]{background:#eee4ff;border-color:#d4c2f3;}
+.node.selected{outline:2px solid #5277ef;outline-offset:1px;}
+.resize-handle{position:absolute;right:-3px;bottom:-3px;width:22px;height:22px;cursor:nwse-resize;touch-action:none;opacity:0;pointer-events:auto;}
+.resize-handle:after{content:'';position:absolute;right:5px;bottom:5px;width:11px;height:11px;border-right:3px solid #5879c4;border-bottom:3px solid #5879c4;border-radius:0 0 2px 0;}
+.node:hover .resize-handle,.node.selected .resize-handle{opacity:1;}
+.style-panel{position:absolute;z-index:3;left:50%;top:13px;transform:translateX(-50%);padding:9px 12px;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e0e7f0;border-radius:12px;box-shadow:0 6px 20px rgba(31,49,82,.11);white-space:nowrap;}
+.style-panel[hidden]{display:none;}
+.panel-label{font-size:12px;color:#707e92;}
+.swatch-set{display:flex;align-items:center;gap:7px;}
+.swatch{width:22px;height:22px;border-radius:50%;border:1px solid #c8d0db;outline:none;}
+.swatch[data-color="white"]{background:#fff;}.swatch[data-color="yellow"]{background:#ffe28f;}.swatch[data-color="blue"]{background:#b5d9ff;}.swatch[data-color="green"]{background:#b8e7bd;}.swatch[data-color="pink"]{background:#ffc1d0;}.swatch[data-color="purple"]{background:#d7c1ff;}
+.swatch.active{box-shadow:0 0 0 2px #fff,0 0 0 4px #5277ef;}
+.panel-separator{width:1px;height:22px;background:#e8ebf1;}
+.size-btn{width:25px;height:25px;border:1px solid #dce2eb;background:#fff;border-radius:6px;color:#52657b;font-size:17px;line-height:21px;}
+.size-btn:hover{background:#f3f6fe;}
+.node-size-value{min-width:66px;text-align:center;color:#65758b;font-size:11px;font-variant-numeric:tabular-nums;}
+@media(max-width:740px){.style-panel{top:8px;padding:7px;gap:6px;max-width:calc(100% - 18px)}.swatch-set{gap:5px}.swatch{width:19px;height:19px}.panel-label{font-size:10px}.node-size-value{min-width:48px;font-size:9px}.size-btn{width:22px;height:22px}}
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand" aria-hidden="true"><span class="brand-line"></span><span class="brand-dot"></span><span class="brand-dot brand-dot-two"></span></div>
+      <div class="title-area">
+        <label class="sr-only" for="boardTitle">思维导图标题</label>
+        <input id="boardTitle" class="board-title" value="我的思维导图" maxlength="100" spellcheck="false" aria-label="思维导图标题" />
+        <div class="status-row"><span id="statusDot" class="status-dot local"></span><span id="statusText">正在初始化...</span></div>
+      </div>
+      <div class="toolbar">
+        <button id="addBtn" class="btn btn-primary" title="新增模块（N）"><span class="icon-text">＋</span> 新建模块</button>
+        <button id="connectBtn" class="btn" title="连线模式（L）">↗ 连线</button>
+        <button id="deleteBtn" class="btn" title="删除选中模块或连线（Delete）">删除</button>
+        <div class="toolbar-divider"></div>
+        <button id="shareBtn" class="btn" title="复制当前网页链接">分享链接</button>
+      </div>
+    </header>
+
+    <main id="workspace" class="workspace" aria-label="可拖动的思维导图画布">
+      <div id="stage" class="stage">
+        <svg id="edgeLayer" class="edge-layer" xmlns="http://www.w3.org/2000/svg" aria-label="模块连接线"></svg>
+        <div id="nodeLayer" class="node-layer"></div>
+      </div>
+      <div id="stylePanel" class="style-panel" hidden aria-label="当前模块样式">
+        <span class="panel-label">颜色</span>
+        <div class="swatch-set" role="group" aria-label="模块颜色">
+          <button class="swatch" data-color="white" title="白色" aria-label="白色"></button>
+          <button class="swatch" data-color="yellow" title="黄色" aria-label="黄色"></button>
+          <button class="swatch" data-color="blue" title="蓝色" aria-label="蓝色"></button>
+          <button class="swatch" data-color="green" title="绿色" aria-label="绿色"></button>
+          <button class="swatch" data-color="pink" title="粉色" aria-label="粉色"></button>
+          <button class="swatch" data-color="purple" title="紫色" aria-label="紫色"></button>
+        </div>
+        <div class="panel-separator"></div>
+        <span class="panel-label">大小</span>
+        <button class="size-btn" data-size="down" title="缩小模块" aria-label="缩小模块">−</button>
+        <span id="nodeSizeValue" class="node-size-value">206 × 90</span>
+        <button class="size-btn" data-size="up" title="放大模块" aria-label="放大模块">＋</button>
+      </div>
+      <div id="emptyHint" class="empty-hint" hidden>还没有模块，点击右上角「新建模块」开始。</div>
+      <div class="bottom-hint" id="hint">拖动模块 · 双击编辑文字 · 右下角调整大小 · 侧边圆点建立连线</div>
+      <div class="zoom-control">
+        <button id="zoomOut" title="缩小" aria-label="缩小">−</button>
+        <span id="zoomValue">100%</span>
+        <button id="zoomIn" title="放大" aria-label="放大">＋</button>
+        <button id="fitBtn" class="fit-btn" title="适应画布">适应</button>
+      </div>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+  <script>
+(() => {
+  'use strict';
+
+  const META_ID = '00000000-0000-4000-8000-000000000001';
+  const LOCAL_KEY = 'shared-mindmap-demo-v2';
+  const NODE_WIDTH = 206;
+  const COLORS = ['white', 'yellow', 'blue', 'green', 'pink', 'purple'];
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  let boardKey = new URLSearchParams(location.search).get('key') || '';
+  const demoMode = location.protocol === 'file:' || location.protocol === 'about:';
+  // 首次进入时创建随机的协作网址。密钥仅保存在分享网址中，不出现在公开源码仓库。
+  if (!demoMode && !boardKey) {
+    const bytes = crypto.getRandomValues(new Uint8Array(24));
+    boardKey = Array.from(bytes, x => x.toString(16).padStart(2, '0')).join('');
+    history.replaceState(null, '', `${location.pathname}?key=${boardKey}${location.hash}`);
+  }
+  const $ = id => document.getElementById(id);
+  const workspace = $('workspace');
+  const stage = $('stage');
+  const nodeLayer = $('nodeLayer');
+  const edgeLayer = $('edgeLayer');
+  const titleEl = $('boardTitle');
+  const configured = !demoMode;
+  const state = {
+    nodes: new Map(), edges: new Map(), title: '我的思维导图',
+    selected: null, connectMode: false, pendingSource: null,
+    camera: { x: 0, y: 0, z: 1 },
+    interaction: null, editingId: null,
+    stream: null, cloudReady: !configured,
+    online: false, pendingSaves: 0
+  };
+
+  let titleTimer = null;
+  let toastTimer = null;
+  let edgeFrame = 0;
+
+  function uuid() {
+    if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.floor(Math.random() * 16);
+      return (c === 'x' ? r : (r & 3 | 8)).toString(16);
+    });
+  }
+
+  function notify(message) {
+    const toast = $('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2700);
+  }
+
+  function setStatus(type, message) {
+    $('statusDot').className = `status-dot ${type}`;
+    $('statusText').textContent = message;
+  }
+
+  function requireReady() {
+    if (state.cloudReady) return true;
+    notify('云端尚未连接，暂时无法编辑，请检查网络或配置');
+    return false;
+  }
+
+  function setHint(text) { $('hint').textContent = text; }
+  function nodeRecord(node) {
+    return { id: node.id, kind: 'node', data: {
+      x: node.x, y: node.y, text: node.text, w: node.w, h: node.h, color: node.color
+    } };
+  }
+  function normalNode(n) {
+    return {
+      id: String(n.id), x: Number(n.x) || 0, y: Number(n.y) || 0,
+      text: String(n.text ?? '新模块').slice(0, 2000),
+      w: clamp(Number(n.w) || 206, 130, 620),
+      h: clamp(Number(n.h) || 90, 66, 420),
+      color: COLORS.includes(n.color) ? n.color : 'white'
+    };
+  }
+  function apiPath(path) { return `${path}?key=${encodeURIComponent(boardKey)}`; }
+  function updateStylePanel() {
+    const selected = state.selected?.type === 'node' ? state.nodes.get(state.selected.id) : null;
+    const panel = $('stylePanel');
+    panel.hidden = !selected;
+    if (!selected) return;
+    for (const btn of panel.querySelectorAll('[data-color]')) {
+      const active = btn.dataset.color === selected.color;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    }
+    $('nodeSizeValue').textContent = `${selected.w} × ${selected.h}`;
+  }
+  function edgeRecord(edge) {
+    return { id: edge.id, kind: 'edge', data: { source: edge.source, target: edge.target } };
+  }
+
+  function loadLocal() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null');
+      if (stored && Array.isArray(stored.nodes) && Array.isArray(stored.edges)) {
+        state.title = typeof stored.title === 'string' ? stored.title : state.title;
+        state.nodes = new Map(stored.nodes.map(n => { const node = normalNode(n); return [node.id, node]; }));
+        state.edges = new Map(stored.edges.map(e => [e.id, e]));
+      } else {
+        const sample = normalNode({ id: uuid(), x: 260, y: 185, text: '中心主题' });
+        state.nodes.set(sample.id, sample);
+      }
+    } catch (err) {
+      console.warn('读取本地数据失败', err);
+      const id = uuid();
+      state.nodes.set(id, normalNode({ id, x: 260, y: 185, text: '中心主题' }));
+    }
+    titleEl.value = state.title;
+    render();
+    fitView();
+    setStatus('local', '本地演示模式 · 不支持多人同步');
+  }
+
+  function saveLocal() {
+    try {
+      localStorage.setItem(LOCAL_KEY, JSON.stringify({
+        title: state.title,
+        nodes: Array.from(state.nodes.values()),
+        edges: Array.from(state.edges.values())
+      }));
+    } catch (error) {
+      console.warn('无法写入浏览器本地存储', error);
+      setStatus('error', '浏览器禁止本地保存');
+    }
+  }
+
+  async function writeRecord(record) {
+    if (!configured) { saveLocal(); return true; }
+    if (!requireReady()) return false;
+    state.pendingSaves++;
+    setStatus('saving', '正在自动保存...');
+    try {
+      const response = await fetch(apiPath('/api/state'), {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ op: 'upsert', record }), cache: 'no-store'
+      });
+      if (!response.ok) throw new Error(`保存返回 ${response.status}`);
+      return true;
+    } catch (error) {
+      console.error('保存失败', error);
+      setStatus('error', '保存失败 · 请检查网络');
+      notify('保存失败，请检查网络后重试');
+      return false;
+    } finally {
+      state.pendingSaves--;
+      if (!state.pendingSaves && state.online) setStatus('online', '已连接 · 多人实时同步');
+    }
+  }
+
+  async function deleteRecord(id) {
+    if (!configured) { saveLocal(); return true; }
+    if (!requireReady()) return false;
+    state.pendingSaves++;
+    setStatus('saving', '正在自动保存...');
+    try {
+      const response = await fetch(apiPath('/api/state'), {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ op: 'delete', id }), cache: 'no-store'
+      });
+      if (!response.ok) throw new Error(`删除返回 ${response.status}`);
+      return true;
+    } catch (error) {
+      console.error('删除失败', error);
+      setStatus('error', '删除失败 · 请检查网络');
+      notify('删除未能保存，请检查网络后重试');
+      return false;
+    } finally {
+      state.pendingSaves--;
+      if (!state.pendingSaves && state.online) setStatus('online', '已连接 · 多人实时同步');
+    }
+  }
+
+  function hydrate(rows) {
+    const nodes = new Map(), edges = new Map();
+    let title = '我的思维导图';
+    for (const row of rows) {
+      const d = row.data || {};
+      if (row.kind === 'meta' && typeof d.title === 'string') title = d.title;
+      if (row.kind === 'node') {
+        const n = normalNode({ id: row.id, ...d });
+        nodes.set(n.id, n);
+      }
+      if (row.kind === 'edge' && d.source && d.target) edges.set(row.id, {
+        id: row.id, source: d.source, target: d.target
+      });
+    }
+    state.nodes = nodes;
+    state.edges = edges;
+    state.title = title;
+    if (document.activeElement !== titleEl) titleEl.value = title;
+    document.title = `${title} - 共创思维导图`;
+    render();
+  }
+
+  function applyRemote(payload) {
+    const row = payload.record;
+    if (!row?.id) return;
+    if (payload.type === 'delete') {
+      if (row.id === META_ID) return;
+      state.nodes.delete(row.id);
+      state.edges.delete(row.id);
+      if (state.selected?.id === row.id) state.selected = null;
+      if (state.pendingSource === row.id) state.pendingSource = null;
+      for (const [id, edge] of state.edges) {
+        if (!state.nodes.has(edge.source) || !state.nodes.has(edge.target)) state.edges.delete(id);
+      }
+    } else if (row.kind === 'meta') {
+      if (typeof row.data?.title === 'string') {
+        state.title = row.data.title;
+        if (document.activeElement !== titleEl) titleEl.value = state.title;
+        document.title = `${state.title} - 共创思维导图`;
+      }
+    } else if (row.kind === 'node') {
+      if (state.interaction && state.interaction.id === row.id && ['node', 'resize'].includes(state.interaction.type)) return;
+      if (state.editingId === row.id) return;
+      state.nodes.set(row.id, normalNode({ id: row.id, ...(row.data || {}) }));
+    } else if (row.kind === 'edge') {
+      state.edges.set(row.id, { id: row.id, source: row.data?.source, target: row.data?.target });
+    }
+    render();
+  }
+
+  // 通过 EdgeOne Makers Blob 存储，轮询同一协作空间的变更；同一节点并行编辑最后写入者优先。
+  let isPolling = false;
+  let latestSnapshot = '';
+  async function pollRemote(initial = false) {
+    if (isPolling || state.pendingSaves > 0 || state.editingId || state.interaction) return;
+    isPolling = true;
+    try {
+      const response = await fetch(apiPath('/api/state'), { cache: 'no-store' });
+      if (!response.ok) throw new Error('云端请求失败：' + response.status);
+      const data = await response.json();
+      if (!Array.isArray(data.rows)) throw new Error('服务端响应格式错误');
+      const snapshot = JSON.stringify(data.rows);
+      if (snapshot !== latestSnapshot || initial) {
+        latestSnapshot = snapshot;
+        hydrate(data.rows);
+        if (initial) fitView();
+      }
+      state.cloudReady = true;
+      state.online = true;
+      if (state.pendingSaves === 0) setStatus('online', '云端已连接 · 约 3 秒同步');
+    } catch (e) {
+      state.online = false;
+      if (initial) state.cloudReady = false;
+      setStatus('error', '云端连接失败 · 正在重试');
+      console.error('同步失败', e);
+    } finally {
+      isPolling = false;
+    }
+  }
+  async function connectCloud() {
+    if (!/^[a-f0-9]{48}$/.test(boardKey)) {
+      setStatus('error', '协作链接格式不正确');
+      return;
+    }
+    setStatus('saving', '正在连接云端...');
+    await pollRemote(true);
+    setInterval(() => void pollRemote(), 3000);
+    window.addEventListener('focus', () => void pollRemote());
+  }
+
+  function applyCamera() {
+    const c = state.camera;
+    stage.style.transform = `translate(${c.x}px, ${c.y}px) scale(${c.z})`;
+    $('zoomValue').textContent = `${Math.round(c.z * 100)}%`;
+    requestEdges();
+  }
+  function screenToWorld(clientX, clientY) {
+    const rect = workspace.getBoundingClientRect();
+    const c = state.camera;
+    return { x: (clientX - rect.left - c.x) / c.z, y: (clientY - rect.top - c.y) / c.z };
+  }
+  function zoomAt(nextZoom, anchorX, anchorY) {
+    const c = state.camera;
+    const z = Math.max(.25, Math.min(2.5, nextZoom));
+    const wx = (anchorX - c.x) / c.z;
+    const wy = (anchorY - c.y) / c.z;
+    c.x = anchorX - wx * z;
+    c.y = anchorY - wy * z;
+    c.z = z;
+    applyCamera();
+  }
+  function fitView() {
+    const nodes = [...state.nodes.values()];
+    if (!nodes.length) return;
+    const rect = workspace.getBoundingClientRect();
+    const minX = Math.min(...nodes.map(n => n.x));
+    const minY = Math.min(...nodes.map(n => n.y));
+    const maxX = Math.max(...nodes.map(n => n.x + (nodeLayer.querySelector(`[data-node-id="${n.id}"]`)?.offsetWidth || NODE_WIDTH)));
+    const maxY = Math.max(...nodes.map(n => n.y + (nodeLayer.querySelector(`[data-node-id="${n.id}"]`)?.offsetHeight || 90)));
+    const width = Math.max(1, maxX - minX), height = Math.max(1, maxY - minY);
+    const z = Math.min(1.18, Math.max(.3, Math.min((rect.width - 110) / width, (rect.height - 120) / height)));
+    state.camera = { x: rect.width / 2 - ((minX + maxX) / 2) * z,
+      y: rect.height / 2 - ((minY + maxY) / 2) * z, z };
+    applyCamera();
+  }
+
+  function select(type, id) {
+    state.selected = type && id ? { type, id } : null;
+    render();
+  }
+
+  function createNodeElement(id) {
+    const el = document.createElement('div');
+    el.className = 'node';
+    el.dataset.nodeId = id;
+    const content = document.createElement('div');
+    content.className = 'node-text';
+    content.title = '双击编辑文字';
+    content.spellcheck = false;
+    content.addEventListener('blur', () => finishEditing(id, true));
+    content.addEventListener('keydown', e => {
+      e.stopPropagation();
+      if (e.key === 'Escape') { e.preventDefault(); finishEditing(id, false); }
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); content.blur(); }
+    });
+    content.addEventListener('pointerdown', e => { if (state.editingId === id) e.stopPropagation(); });
+    el.appendChild(content);
+
+    for (const side of ['left','right','top','bottom']) {
+      const handle = document.createElement('span');
+      handle.className = `handle ${side}`;
+      handle.title = '拖至另一模块，建立连接';
+      handle.dataset.handle = side;
+      handle.addEventListener('pointerdown', e => {
+        if (e.button !== 0 || !requireReady()) return;
+        e.preventDefault(); e.stopPropagation();
+        const world = screenToWorld(e.clientX, e.clientY);
+        state.interaction = { type: 'connect', from: id, world, startX: e.clientX, startY: e.clientY };
+        state.pendingSource = null;
+        select('node', id);
+        setHint('拖到另一个模块上松开，即可建立连线；也可以点击目标模块');
+        requestEdges();
+      });
+      el.appendChild(handle);
+    }
+    const resizeHandle = document.createElement('span');
+    resizeHandle.className = 'resize-handle';
+    resizeHandle.title = '拖动改变模块宽高';
+    resizeHandle.setAttribute('aria-label', '拖动改变模块大小');
+    resizeHandle.addEventListener('pointerdown', e => {
+      if (e.button !== 0 || !requireReady()) return;
+      e.stopPropagation();
+      e.preventDefault();
+      const n = state.nodes.get(id);
+      if (!n) return;
+      state.selected = { type: 'node', id };
+      state.interaction = { type: 'resize', id, startX: e.clientX, startY: e.clientY, w: n.w, h: n.h, moved: false };
+      render();
+      setHint('拖动右下角调整模块宽高，松开鼠标后自动同步');
+    });
+    el.appendChild(resizeHandle);
+    el.addEventListener('pointerdown', e => {
+      if (e.button !== 0 || !requireReady() || state.editingId === id || e.target.closest('.handle, .resize-handle')) return;
+      e.stopPropagation();
+      if (state.pendingSource) {
+        createEdge(state.pendingSource, id);
+        state.pendingSource = null;
+        render();
+        return;
+      }
+      if (state.connectMode) {
+        state.pendingSource = id;
+        select('node', id);
+        setHint('点击目标模块完成连线，或按 Esc 取消');
+        return;
+      }
+      const n = state.nodes.get(id);
+      if (!n) return;
+      select('node', id);
+      state.interaction = { type: 'node', id, startX: e.clientX, startY: e.clientY, x: n.x, y: n.y, moved: false };
+    });
+    el.addEventListener('dblclick', e => {
+      if (!e.target.closest('.handle')) {
+        e.stopPropagation();
+        startEditing(id);
+      }
+    });
+    return el;
+  }
+
+  function renderNodes() {
+    for (const el of [...nodeLayer.querySelectorAll('[data-node-id]')]) {
+      if (!state.nodes.has(el.dataset.nodeId)) el.remove();
+    }
+    for (const node of state.nodes.values()) {
+      let el = [...nodeLayer.children].find(child => child.dataset.nodeId === node.id);
+      if (!el) { el = createNodeElement(node.id); nodeLayer.appendChild(el); }
+      el.style.left = `${node.x}px`;
+      el.style.top = `${node.y}px`;
+      el.style.width = `${node.w}px`;
+      el.style.height = `${node.h}px`;
+      el.dataset.color = node.color;
+      el.classList.toggle('selected', state.selected?.type === 'node' && state.selected?.id === node.id);
+      el.classList.toggle('pending', state.pendingSource === node.id);
+      el.classList.toggle('dragging', ['node', 'resize'].includes(state.interaction?.type) && state.interaction.id === node.id);
+      const content = el.querySelector('.node-text');
+      if (state.editingId !== node.id && content.textContent !== node.text) content.textContent = node.text;
+    }
+    $('emptyHint').hidden = state.nodes.size !== 0;
+    updateStylePanel();
+  }
+
+  function nodeCenter(id) {
+    const n = state.nodes.get(id);
+    if (!n) return null;
+    const el = [...nodeLayer.children].find(child => child.dataset.nodeId === id);
+    const w = el?.offsetWidth || NODE_WIDTH, h = el?.offsetHeight || 80;
+    return { x: n.x + w / 2, y: n.y + h / 2, w, h };
+  }
+  function pathBetween(from, to) {
+    const dx = to.x - from.x, dy = to.y - from.y;
+    if (Math.abs(dx) > Math.abs(dy) * 1.0) {
+      const right = dx >= 0;
+      const ax = from.x + (right ? from.w / 2 : -from.w / 2);
+      const bx = to.x - (right ? to.w / 2 : -to.w / 2);
+      const bend = Math.max(42, Math.abs(bx - ax) * .45);
+      const dir = right ? 1 : -1;
+      return `M ${ax} ${from.y} C ${ax + dir * bend} ${from.y}, ${bx - dir * bend} ${to.y}, ${bx} ${to.y}`;
+    }
+    const down = dy >= 0, dir = down ? 1 : -1;
+    const ay = from.y + (down ? from.h / 2 : -from.h / 2);
+    const by = to.y - (down ? to.h / 2 : -to.h / 2);
+    const bend = Math.max(42, Math.abs(by - ay) * .45);
+    return `M ${from.x} ${ay} C ${from.x} ${ay + dir * bend}, ${to.x} ${by - dir * bend}, ${to.x} ${by}`;
+  }
+
+  function renderEdges() {
+    edgeLayer.replaceChildren();
+    const ns = 'http://www.w3.org/2000/svg';
+    for (const edge of state.edges.values()) {
+      const from = nodeCenter(edge.source), to = nodeCenter(edge.target);
+      if (!from || !to) continue;
+      const d = pathBetween(from, to);
+      const path = document.createElementNS(ns, 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('class', `edge${state.selected?.type === 'edge' && state.selected?.id === edge.id ? ' selected' : ''}`);
+      edgeLayer.appendChild(path);
+      const hit = document.createElementNS(ns, 'path');
+      hit.setAttribute('d', d);
+      hit.setAttribute('class', 'edge-hit');
+      hit.addEventListener('pointerdown', e => {
+        if (e.button !== 0) return;
+        e.stopPropagation();
+        select('edge', edge.id);
+      });
+      edgeLayer.appendChild(hit);
+    }
+    if (state.interaction?.type === 'connect') {
+      const from = nodeCenter(state.interaction.from);
+      if (from) {
+        const d = pathBetween(from, { x: state.interaction.world.x, y: state.interaction.world.y, w: 0, h: 0 });
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('class', 'edge temporary');
+        edgeLayer.appendChild(path);
+      }
+    }
+  }
+  function requestEdges() {
+    if (edgeFrame) return;
+    edgeFrame = requestAnimationFrame(() => { edgeFrame = 0; renderEdges(); });
+  }
+  function render() { renderNodes(); requestEdges(); }
+
+  function startEditing(id) {
+    if (!requireReady()) return;
+    if (state.editingId && state.editingId !== id) finishEditing(state.editingId, true);
+    const el = [...nodeLayer.children].find(child => child.dataset.nodeId === id);
+    if (!el) return;
+    state.editingId = id;
+    state.interaction = null;
+    const content = el.querySelector('.node-text');
+    content.contentEditable = 'true';
+    content.classList.add('editing');
+    content.focus();
+    const range = document.createRange();
+    range.selectNodeContents(content);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    setHint('编辑中文内容 · Ctrl/⌘ + Enter 保存 · Esc 取消');
+  }
+  function finishEditing(id, save) {
+    if (state.editingId !== id) return;
+    const el = [...nodeLayer.children].find(child => child.dataset.nodeId === id);
+    const content = el?.querySelector('.node-text');
+    const node = state.nodes.get(id);
+    state.editingId = null;
+    if (content) { content.contentEditable = 'false'; content.classList.remove('editing'); }
+    if (node && content) {
+      const oldValue = node.text;
+      if (save) {
+        node.text = (content.innerText || '').replace(/\r/g, '').trim() || '新模块';
+        if (node.text !== oldValue) void writeRecord(nodeRecord(node));
+      }
+      content.textContent = node.text;
+    }
+    setHint('拖动模块调整位置 · 双击模块文字进行编辑 · 从模块侧边圆点拖出连线');
+    render();
+  }
+
+  function addNode() {
+    if (!requireReady()) return;
+    const r = workspace.getBoundingClientRect();
+    const p = screenToWorld(r.left + r.width / 2, r.top + r.height / 2);
+    const anchor = state.selected?.type === 'node' ? state.nodes.get(state.selected.id) : null;
+    let x = anchor ? anchor.x + anchor.w + 64 : Math.round(p.x - NODE_WIDTH / 2);
+    let y = anchor ? anchor.y : Math.round(p.y - 40);
+    // 尽量不与现有模块重叠；新模块默认出现在当前模块右侧。
+    for (let attempt = 0; attempt < 100; attempt++) {
+      const overlaps = [...state.nodes.values()].some(n => Math.abs(n.x - x) < Math.max(n.w, 206) + 24 && Math.abs(n.y - y) < Math.max(n.h, 90) + 24);
+      if (!overlaps) break;
+      y += 128;
+      if ((attempt + 1) % 4 === 0) { x += 270; y = anchor ? anchor.y : Math.round(p.y - 40); }
+    }
+    const node = normalNode({ id: uuid(), x, y, text: '新模块', color: anchor?.color || 'white' });
+    state.nodes.set(node.id, node);
+    // 如果新增模块落在当前可视区域之外，轻轻移动画布让它可见。
+    const visibleX = node.x * state.camera.z + state.camera.x;
+    const visibleY = node.y * state.camera.z + state.camera.y;
+    if (visibleX > r.width - 235) state.camera.x -= visibleX - (r.width - 235);
+    if (visibleY > r.height - 125) state.camera.y -= visibleY - (r.height - 125);
+    applyCamera();
+    state.selected = { type: 'node', id: node.id };
+    render();
+    void writeRecord(nodeRecord(node));
+    startEditing(node.id);
+  }
+  function createEdge(source, target) {
+    if (!requireReady() || !source || !target || source === target) return;
+    if (!state.nodes.has(source) || !state.nodes.has(target)) return;
+    for (const edge of state.edges.values()) {
+      if ((edge.source === source && edge.target === target) || (edge.source === target && edge.target === source)) {
+        notify('这两个模块已经连接');
+        return;
+      }
+    }
+    const edge = { id: uuid(), source, target };
+    state.edges.set(edge.id, edge);
+    state.selected = { type: 'edge', id: edge.id };
+    void writeRecord(edgeRecord(edge));
+    render();
+    setHint('连线已创建 · 点击连线可选中，按 Delete 可删除');
+  }
+  async function deleteSelected() {
+    if (!requireReady() || !state.selected) { notify('先点选一个模块或连线'); return; }
+    const { type, id } = state.selected;
+    state.selected = null;
+    if (type === 'edge') {
+      state.edges.delete(id);
+      render();
+      await deleteRecord(id);
+    } else {
+      const affected = [...state.edges.values()].filter(e => e.source === id || e.target === id).map(e => e.id);
+      for (const edgeId of affected) state.edges.delete(edgeId);
+      state.nodes.delete(id);
+      if (state.pendingSource === id) state.pendingSource = null;
+      render();
+      for (const edgeId of affected) await deleteRecord(edgeId);
+      await deleteRecord(id);
+    }
+  }
+
+  workspace.addEventListener('pointerdown', e => {
+    if (e.button !== 0 || e.target.closest('.node') || e.target.closest('.zoom-control') || e.target.closest('.style-panel')) return;
+    if (e.target.closest('.edge-hit')) return;
+    if (state.pendingSource) { state.pendingSource = null; render(); }
+    select(null, null);
+    state.interaction = { type: 'pan', startX: e.clientX, startY: e.clientY,
+      x: state.camera.x, y: state.camera.y };
+    workspace.classList.add('is-panning');
+  });
+  document.addEventListener('pointermove', e => {
+    const it = state.interaction;
+    if (!it) return;
+    if (it.type === 'pan') {
+      state.camera.x = it.x + e.clientX - it.startX;
+      state.camera.y = it.y + e.clientY - it.startY;
+      applyCamera();
+    } else if (it.type === 'node') {
+      const node = state.nodes.get(it.id);
+      if (!node) return;
+      node.x = Math.round(it.x + (e.clientX - it.startX) / state.camera.z);
+      node.y = Math.round(it.y + (e.clientY - it.startY) / state.camera.z);
+      it.moved = it.moved || Math.abs(e.clientX - it.startX) + Math.abs(e.clientY - it.startY) > 3;
+      const el = [...nodeLayer.children].find(child => child.dataset.nodeId === it.id);
+      if (el) { el.style.left = `${node.x}px`; el.style.top = `${node.y}px`; }
+      requestEdges();
+    } else if (it.type === 'resize') {
+      const node = state.nodes.get(it.id);
+      if (!node) return;
+      node.w = Math.round(clamp(it.w + (e.clientX - it.startX) / state.camera.z, 130, 620));
+      node.h = Math.round(clamp(it.h + (e.clientY - it.startY) / state.camera.z, 66, 420));
+      it.moved = it.moved || node.w !== it.w || node.h !== it.h;
+      const el = [...nodeLayer.children].find(child => child.dataset.nodeId === it.id);
+      if (el) { el.style.width = `${node.w}px`; el.style.height = `${node.h}px`; }
+      $('nodeSizeValue').textContent = `${node.w} × ${node.h}`;
+      requestEdges();
+    } else if (it.type === 'connect') {
+      it.world = screenToWorld(e.clientX, e.clientY);
+      requestEdges();
+    }
+  });
+  document.addEventListener('pointerup', e => {
+    const it = state.interaction;
+    if (!it) return;
+    state.interaction = null;
+    workspace.classList.remove('is-panning');
+    if (it.type === 'node' || it.type === 'resize') {
+      const node = state.nodes.get(it.id);
+      if (node && it.moved) void writeRecord(nodeRecord(node));
+    } else if (it.type === 'connect') {
+      const under = document.elementFromPoint(e.clientX, e.clientY);
+      const target = under?.closest?.('[data-node-id]')?.dataset.nodeId;
+      if (target && target !== it.from) createEdge(it.from, target);
+      else {
+        state.pendingSource = it.from;
+        setHint('现在点击目标模块完成连线，按 Esc 取消');
+      }
+    }
+    render();
+  });
+  window.addEventListener('blur', () => {
+    if (['node', 'resize'].includes(state.interaction?.type) && state.interaction.moved) {
+      const n = state.nodes.get(state.interaction.id);
+      if (n) void writeRecord(nodeRecord(n));
+    }
+    state.interaction = null;
+    workspace.classList.remove('is-panning');
+    render();
+  });
+  workspace.addEventListener('wheel', e => {
+    if (e.target.closest('.zoom-control')) return;
+    e.preventDefault();
+    const rect = workspace.getBoundingClientRect();
+    const scale = Math.exp(-e.deltaY * .001);
+    zoomAt(state.camera.z * scale, e.clientX - rect.left, e.clientY - rect.top);
+  }, { passive: false });
+
+  $('addBtn').addEventListener('click', addNode);
+  $('deleteBtn').addEventListener('click', () => void deleteSelected());
+  $('connectBtn').addEventListener('click', () => {
+    state.connectMode = !state.connectMode;
+    state.pendingSource = null;
+    $('connectBtn').classList.toggle('active', state.connectMode);
+    workspace.classList.toggle('is-linking', state.connectMode);
+    setHint(state.connectMode ? '依次点击两个模块，就能建立连线 · Esc 退出' : '拖动模块调整位置 · 双击文字编辑 · 从模块侧边圆点拖出连线');
+    render();
+  });
+  $('stylePanel').addEventListener('click', event => {
+    const btn = event.target.closest('button');
+    const selected = state.selected?.type === 'node' ? state.nodes.get(state.selected.id) : null;
+    if (!btn || !selected || !requireReady()) return;
+    if (btn.dataset.color && COLORS.includes(btn.dataset.color)) {
+      selected.color = btn.dataset.color;
+    } else if (btn.dataset.size === 'down') {
+      selected.w = Math.round(clamp(selected.w - 25, 130, 620));
+      selected.h = Math.round(clamp(selected.h - 12, 66, 420));
+    } else if (btn.dataset.size === 'up') {
+      selected.w = Math.round(clamp(selected.w + 25, 130, 620));
+      selected.h = Math.round(clamp(selected.h + 12, 66, 420));
+    } else return;
+    render();
+    void writeRecord(nodeRecord(selected));
+  });
+  $('zoomIn').addEventListener('click', () => zoomAt(state.camera.z * 1.2, workspace.clientWidth / 2, workspace.clientHeight / 2));
+  $('zoomOut').addEventListener('click', () => zoomAt(state.camera.z / 1.2, workspace.clientWidth / 2, workspace.clientHeight / 2));
+  $('fitBtn').addEventListener('click', fitView);
+  $('shareBtn').addEventListener('click', async () => {
+    if (!configured) { notify('当前是本地演示模式，请先部署协作服务器才能共享'); return; }
+    if (location.protocol === 'file:') { notify('请先将网页部署到公网，再分享网址'); return; }
+    try {
+      await navigator.clipboard.writeText(location.href);
+      notify('链接已复制，发给别人即可一起编辑');
+    } catch { window.prompt('复制此链接分享给其他人：', location.href); }
+  });
+  titleEl.addEventListener('input', () => {
+    if (!requireReady()) return;
+    state.title = titleEl.value;
+    clearTimeout(titleTimer);
+    titleTimer = setTimeout(saveTitle, 700);
+  });
+  titleEl.addEventListener('blur', () => {
+    clearTimeout(titleTimer);
+    if (state.cloudReady && state.title !== '') void saveTitle();
+  });
+  function saveTitle() {
+    const title = titleEl.value.trim() || '我的思维导图';
+    if (!requireReady()) return;
+    state.title = title;
+    if (document.activeElement !== titleEl) titleEl.value = title;
+    document.title = `${title} - 共创思维导图`;
+    void writeRecord({ id: META_ID, kind: 'meta', data: { title } });
+  }
+  document.addEventListener('keydown', e => {
+    const active = document.activeElement;
+    if (active === titleEl || active?.isContentEditable || active?.tagName === 'INPUT' || e.altKey || e.ctrlKey || e.metaKey) return;
+    const key = e.key.toLowerCase();
+    if (key === 'delete' || key === 'backspace') { e.preventDefault(); void deleteSelected(); }
+    if (key === 'n') { e.preventDefault(); addNode(); }
+    if (key === 'l') { e.preventDefault(); $('connectBtn').click(); }
+    if (key === 'escape') {
+      state.pendingSource = null;
+      if (state.connectMode) $('connectBtn').click();
+      else select(null, null);
+      render();
+    }
+  });
+  window.addEventListener('resize', requestEdges);
+
+  if (configured) void connectCloud();
+  else loadLocal();
+})();
+
+  </script>
+</body>
+</html>
