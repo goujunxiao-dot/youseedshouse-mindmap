@@ -151,11 +151,23 @@ button:focus-visible, input:focus-visible, .node-text:focus-visible { outline:3p
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
   let boardKey = new URLSearchParams(location.search).get('key') || '';
   const demoMode = location.protocol === 'file:' || location.protocol === 'about:';
-  // 首次进入时创建随机的协作网址。密钥仅保存在分享网址中，不出现在公开源码仓库。
-  if (!demoMode && !boardKey) {
-    const bytes = crypto.getRandomValues(new Uint8Array(24));
-    boardKey = Array.from(bytes, x => x.toString(16).padStart(2, '0')).join('');
-    history.replaceState(null, '', `${location.pathname}?key=${boardKey}${location.hash}`);
+  const boardKeyStorage = 'youseedshouse-mindmap-board-key-v1';
+  // 从旧的分享链接返回时优先保留 key，新预览链接则自动恢复本机最近编辑的看板。
+  // 不丢弃平台预览网址已有的校验参数（比如 eo_token）。
+  if (!demoMode) {
+    let remembered = '';
+    try { remembered = localStorage.getItem(boardKeyStorage) || ''; } catch {}
+    if (!/^[a-f0-9]{48}$/.test(boardKey) && /^[a-f0-9]{48}$/.test(remembered)) boardKey = remembered;
+    if (!/^[a-f0-9]{48}$/.test(boardKey)) {
+      const bytes = crypto.getRandomValues(new Uint8Array(24));
+      boardKey = Array.from(bytes, x => x.toString(16).padStart(2, '0')).join('');
+    }
+    try { localStorage.setItem(boardKeyStorage, boardKey); } catch {}
+    if (new URLSearchParams(location.search).get('key') !== boardKey) {
+      const link = new URL(location.href);
+      link.searchParams.set('key', boardKey);
+      history.replaceState(null, '', link.pathname + link.search + link.hash);
+    }
   }
   const $ = id => document.getElementById(id);
   const workspace = $('workspace');
